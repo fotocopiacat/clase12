@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.example.android.clase12.R.layout.activity_item
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
@@ -33,12 +34,18 @@ class MainActivity : AppCompatActivity() {
                 val respuesta = response?.body()?.string()
                 val gson = GsonBuilder().create()
                 val indicador = gson.fromJson(respuesta,Indicador::class.java)
+
+                val adaptador = CustomAdapter(this@MainActivity,R.layout.activity_item,indicador.serie)
+                lvListar.adapter = adaptador
             }
         })
 
     }
 
     //como el customadapter se usara solo una vez, lo creamos en el main activity
+
+    }
+
     class CustomAdapter(var miContexto:Context,
                         var miRecurso:Int,
                         var miLista:ArrayList<Serie>):
@@ -48,9 +55,8 @@ class MainActivity : AppCompatActivity() {
             var valor = v.findViewById<TextView>(R.id.lblValor)
             var fecha = v.findViewById<TextView>(R.id.lblFecha)
             valor.text = miLista[position].valor.toString()
-            fecha.text=miLista[position].fecha
+            fecha.text = miLista[position].fecha
             return v
         }
-    }
     }
 }
