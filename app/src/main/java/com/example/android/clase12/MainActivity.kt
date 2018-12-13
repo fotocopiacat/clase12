@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,10 +20,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
     btnUpdate.setOnClickListener {
-        var url = ""
-        val request = Request.Builder().url(url)
+        var url = "https://mindicador.cl/api/uf"
+        val request = Request.Builder().url(url).build()
         val cliente = OkHttpClient()
-    }
+
+        cliente.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException) {
+
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                val respuesta = response?.body()?.string()
+                val gson = GsonBuilder().create()
+                val indicador = gson.fromJson(respuesta,Indicador::class.java)
+            }
+        })
 
     }
 
@@ -39,5 +51,6 @@ class MainActivity : AppCompatActivity() {
             fecha.text=miLista[position].fecha
             return v
         }
+    }
     }
 }
