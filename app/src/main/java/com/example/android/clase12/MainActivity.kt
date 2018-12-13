@@ -35,8 +35,11 @@ class MainActivity : AppCompatActivity() {
                 val gson = GsonBuilder().create()
                 val indicador = gson.fromJson(respuesta,Indicador::class.java)
 
-                val adaptador = CustomAdapter(this@MainActivity,R.layout.activity_item,indicador.serie)
-                lvListar.adapter = adaptador
+                runOnUiThread {
+                    val adaptador = CustomAdapter(this@MainActivity,R.layout.activity_item,indicador.serie)
+                    lvListar.adapter = adaptador
+                }
+
             }
         })
 
