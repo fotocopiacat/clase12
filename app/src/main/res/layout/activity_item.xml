@@ -5,13 +5,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" android:orientation="vertical">
+        tools:context=".ItemActivity" android:orientation="vertical">
 
-    <Button
-            android:text="update"
+    <TextView
+            android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/btnUpdate"/>
-    <ListView
+            android:layout_height="wrap_content" android:id="@+id/lblValor"/>
+    <TextView
+            android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/lvListar"/>
+            android:layout_height="wrap_content" android:id="@+id/lblFecha"/>
 </LinearLayout>
